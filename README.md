@@ -13,7 +13,7 @@
 ### 安装
 
 ```go
-go get github.com/anhao/go -ernie
+go get github.com/anhao/go-ernie
 ```
 
 需要 go 版本为 1.18+
