@@ -280,7 +280,7 @@ import (
 func main() {
 
 	client := ernie.NewDefaultClient("API Key", "Secret Key")
-	completion, err := client.CreateBloomz7b1ChatCompletion(context.Background(), ernie.LlamaChatRequest{
+	completion, err := client.CreateLlamaChatCompletion(context.Background(), ernie.LlamaChatRequest{
 		Messages: []ernie.ChatCompletionMessage{
 			{
 				Role:    ernie.MessageRoleUser,
