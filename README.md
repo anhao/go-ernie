@@ -9,6 +9,7 @@
 * ERNIE-Bot-turbo
 * BLOOMZ-7B
 * Llama-2
+* Embeddings
 
 ### 安装
 
