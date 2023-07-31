@@ -92,11 +92,10 @@ func (c *Client) newRequest(ctx context.Context, method, url string, setters ...
 	}
 	if len(c.config.accessToken) == 0 {
 		accessToken, err := c.GetAccessToken(ctx)
-
 		if err != nil {
 			return nil, err
 		}
-		fmt.Println(*accessToken)
+		c.config.accessToken = *accessToken
 	}
 
 	c.setCommonQuery(req)
