@@ -9,17 +9,18 @@ import (
 
 func TestClient_CreateErnieBotTurboChatCompletion(t *testing.T) {
 	client := NewClient("xxx")
-	request := ErnieBotRequest{
+	request := ErnieBotTurboRequest{
 		Messages: []ChatCompletionMessage{
 			{
 				Role:    "user",
 				Content: "Hello",
 			},
 		},
-		Stream: false,
+		Stream:      false,
+		Temperature: 0.1,
 	}
 
-	response, err := client.CreateErnieBotChatCompletion(context.Background(), request)
+	response, err := client.CreateErnieBotTurboChatCompletion(context.Background(), request)
 	if err != nil {
 		t.Error(err)
 		return
