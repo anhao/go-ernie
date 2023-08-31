@@ -10,6 +10,7 @@
 * BLOOMZ-7B
 * Llama-2
 * Embeddings
+* 百度云所有模型
 
 ### 安装
 
@@ -384,6 +385,87 @@ func main() {
 
 ```go
 client :=ernie.NewClient("accessToken")
+```
+
+</details>
+<details>
+<summary>百度云其他Chat模型</summary>
+百度云的其他模型需要自己部署，部署需要填写一个API地址
+
+```go
+import (
+	"context"
+	"errors"
+	"fmt"
+	ernie "github.com/anhao/go-ernie"
+	"io"
+)
+
+func main() {
+
+	client := ernie.NewDefaultClient("API Key", "Secret Key")
+	request := ernie.BaiduChatRequest{
+		Messages: []ChatCompletionMessage{
+			{
+				Role:    "user",
+				Content: "Hello",
+			},
+		},
+		Stream: true,
+		Model: "", //申请发布时填写的API名称
+	}
+
+	stream, err := client.CreateBaiduChatCompletionStream(context.Background(), request)
+	if err != nil {
+		fmt.Printf("baidu chat error: %v\n", err)
+		return
+	}
+	defer stream.Close()
+	for {
+		response, err := stream.Recv()
+		if errors.Is(err, io.EOF) {
+			fmt.Println("baidu chat  Stream finished")
+			return
+		}
+		if err != nil {
+			fmt.Printf("baidu chat stream error: %v\n", err)
+			return
+		}
+		fmt.Println(response.Result)
+	}
+}
+```
+
+</details>
+
+<details>
+<summary>文本生成图片</summary>
+百度云的其他模型需要自己部署，部署需要填写一个API地址
+
+```go
+import (
+	"context"
+	"errors"
+	"fmt"
+	ernie "github.com/anhao/go-ernie"
+	"io"
+)
+
+func main() {
+
+	client := ernie.NewDefaultClient("API Key", "Secret Key")
+	request := ernie.BaiduTxt2ImgRequest{
+		Model: "", //申请发布时填写的API名称
+		Prompt: "",//提示词
+	}
+
+    response, err := client.CreateBaiduTxt2Img(context.Background(), request)
+	if err != nil {
+		fmt.Printf("baidu txt2img error: %v\n", err)
+		return
+	}
+	fmt.Println(response)
+}
 ```
 
 </details>
