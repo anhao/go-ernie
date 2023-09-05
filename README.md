@@ -469,3 +469,36 @@ func main() {
 ```
 
 </details>
+
+
+<details>
+<summary>插件应用</summary>
+
+```go
+import (
+	"context"
+	"errors"
+	"fmt"
+	ernie "github.com/anhao/go-ernie"
+	"io"
+)
+
+func main() {
+
+	client := ernie.NewDefaultClient("API Key", "Secret Key")
+	request := ernie.ErnieCustomPluginRequest{
+		PluginName: "xxx", // 插件名称
+		Query:      "你好",// 查询信息
+		Stream:     false,
+	}
+
+    response, err := client.CreateErnieCustomPluginChatCompletion(context.Background(), request)
+	if err != nil {
+		fmt.Printf("ernie custom plugins error: %v\n", err)
+		return
+	}
+	fmt.Println(response)
+}
+```
+
+</details>
