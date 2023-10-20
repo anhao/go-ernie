@@ -14,6 +14,7 @@ type ErnieBotTurboRequest struct {
 	Temperature     float32                 `json:"temperature,omitempty"`
 	TopP            float32                 `json:"top_p,omitempty"`
 	PresencePenalty float32                 `json:"presence_penalty,omitempty"`
+	PenaltyScore    float32                 `json:"penalty_score,omitempty"`
 }
 
 type ErnieBotTurboResponse struct {

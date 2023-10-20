@@ -16,7 +16,7 @@ var (
 )
 
 type streamable interface {
-	ErnieBotResponse | ErnieBotTurboResponse | Bloomz7b1Response | LlamaChatResponse | BaiduChatResponse | ErnieCustomPluginResponse
+	ErnieBotResponse | ErnieBotTurboResponse | Bloomz7b1Response | LlamaChatResponse | BaiduChatResponse | ErnieCustomPluginResponse | ErnieBot4Response | CompletionResponse
 }
 type streamReader[T streamable] struct {
 	emptyMessagesLimit uint
