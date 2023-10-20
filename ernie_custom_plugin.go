@@ -9,9 +9,15 @@ import (
 const ernireCustomPluginUrl = "/rpc/2.0/ai_custom/v1/wenxinworkshop/plugin/"
 
 type ErnieCustomPluginRequest struct {
-	PluginName string `json:"-"`
-	Query      string `json:"query"`
-	Stream     bool   `json:"stream"`
+	PluginName     string                  `json:"-"`
+	Query          string                  `json:"query"`
+	Stream         bool                    `json:"stream"`
+	Plugins        []string                `json:"plugins"`
+	LLM            any                     `json:"llm,omitempty"`
+	InputVariables any                     `json:"input_variables,omitempty"`
+	History        []ChatCompletionMessage `json:"history,omitempty"`
+	Verbose        bool                    `json:"verbose,omitempty"`
+	FileUrl        string                  `json:"fileurl,omitempty"`
 }
 
 type ErnieCustomPluginResponse struct {
@@ -25,6 +31,7 @@ type ErnieCustomPluginResponse struct {
 	NeedClearHistory bool       `json:"need_clear_history"`
 	BanRound         int        `json:"ban_round"`
 	Usage            ErnieUsage `json:"usage"`
+	MetaInfo         any        `json:"meta_info"`
 	APIError
 }
 
