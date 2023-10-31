@@ -5,6 +5,7 @@
 本库为文心千帆GO语言SDK，非官方库,目前官方还没有GO语言的SDK [文心千帆](https://cloud.baidu.com/product/wenxinworkshop)
 目前支持：
 
+* ERNIE-Bot-4
 * ERNIE-Bot
 * ERNIE-Bot-turbo
 * BLOOMZ-7B
@@ -55,6 +56,58 @@ func main() {
 3. 获取 apikey 和 api secret
 
 ### 其他示例
+
+<details>
+<summary>ERNIE-Bot 4.0 对话 </summary>
+
+```go
+import (
+	"context"
+	"errors"
+	"fmt"
+	ernie "github.com/anhao/go-ernie"
+	"io"
+)
+
+func main() {
+
+	client := ernie.NewDefaultClient("API Key", "Secret Key")
+	request := ernie.ErnieBot4Request{
+		Messages: []ChatCompletionMessage{
+			{
+				Role:    "user",
+				Content: "Hello",
+			},
+		},
+		Stream: true,
+	}
+
+	stream, err := client.CreateErnieBot4ChatCompletionStream(context.Background(), request)
+	if err != nil {
+		fmt.Printf("ernie bot stream error: %v\n", err)
+		return
+	}
+	defer stream.Close()
+	for {
+		response, err := stream.Recv()
+		if errors.Is(err, io.EOF) {
+			fmt.Println("ernie bot 4 Stream finished")
+			return
+		}
+		if err != nil {
+			fmt.Printf("ernie bot 4 stream error: %v\n", err)
+			return
+		}
+		fmt.Println(response.Result)
+	}
+}
+```
+
+
+</details>
+
+
+
 <details>
 <summary>ERNIE-Bot stream流 对话 </summary>
 

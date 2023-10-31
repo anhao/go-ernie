@@ -9,6 +9,7 @@ import (
 const (
 	MessageRoleUser      = "user"
 	MessageRoleAssistant = "assistant"
+	MessageRoleFunction  = "function"
 )
 
 var (
@@ -52,6 +53,7 @@ type ErnieBotRequest struct {
 	UserId          string                  `json:"user_id,omitempty"`
 	PenaltyScore    float32                 `json:"penalty_score,omitempty"`
 	Functions       []ErnieFunction         `json:"functions,omitempty"`
+	System          string                  `json:"system,omitempty"`
 }
 
 type ErniePluginUsage struct {

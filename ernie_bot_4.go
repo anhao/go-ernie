@@ -15,6 +15,7 @@ type ErnieBot4Request struct {
 	UserId       string                  `json:"user_id,omitempty"`
 	Functions    []ErnieFunction         `json:"functions,omitempty"`
 	PenaltyScore float32                 `json:"penalty_score,omitempty"`
+	System       string                  `json:"system,omitempty"`
 }
 
 type ErnieBot4Response struct {
