@@ -8,15 +8,30 @@ import (
 )
 
 func TestClient_CreateErnieBotChatCompletion(t *testing.T) {
-	client := NewClient("xxx")
+	client := NewClient("")
 	request := ErnieBotRequest{
 		Messages: []ChatCompletionMessage{
 			{
 				Role:    "user",
-				Content: "Hello",
+				Content: "南昌的天气怎么样",
 			},
 		},
 		Stream: false,
+		Functions: []ErnieFunction{
+			{
+				Name:        "get_weather",
+				Description: "获取天气信息",
+				Parameters: map[string]interface{}{
+					"type": "object",
+					"properties": map[string]interface{}{
+						"location": map[string]interface{}{
+							"type":        "string",
+							"description": "要查询的城市地址",
+						},
+					},
+				},
+			},
+		},
 	}
 
 	response, err := client.CreateErnieBotChatCompletion(context.Background(), request)
