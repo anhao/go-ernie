@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 )
 
 type Client struct {
@@ -53,6 +54,7 @@ func NewDefaultClient(clientId, clientSecret string) *Client {
 		HTTPClient:         &http.Client{},
 		EmptyMessagesLimit: defaultEmptyMessagesLimit,
 		BaseURL:            baiduBceURL,
+		Cache:              NewCache(),
 	}
 
 	return NewClientWithConfig(config)
@@ -160,6 +162,12 @@ func (c *Client) setCommonQuery(req *http.Request) {
 }
 
 func (c *Client) GetAccessToken(ctx context.Context) (*string, error) {
+	//判断是否有缓存
+	cacheAccessToken, ok := c.config.Cache.Get("cache_" + c.config.ClientId)
+	if ok {
+		token := cacheAccessToken.(string)
+		return &token, nil
+	}
 	apiUrl := "https://aip.baidubce.com/oauth/2.0/token?client_id=" + c.config.ClientId + "&client_secret=" + c.config.ClientSecret + "&grant_type=client_credentials"
 	payload := strings.NewReader(``)
 	client := &http.Client{}
@@ -189,6 +197,9 @@ func (c *Client) GetAccessToken(ctx context.Context) (*string, error) {
 	if rep.Error != "" || rep.AccessToken == "" {
 		return nil, errors.New(rep.ErrorDescription)
 	}
+	//提前100s过期
+	c.config.Cache.Set("cache_"+c.config.ClientId, rep.AccessToken, time.Duration(rep.ExpiresIn-100)*time.Second)
+
 	return &rep.AccessToken, nil
 }
 
