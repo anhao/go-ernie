@@ -14,6 +14,7 @@ type ClientConfig struct {
 	BaseURL            string
 	HTTPClient         *http.Client
 	EmptyMessagesLimit uint
+	Cache              *Cache
 }
 
 func DefaultConfig(accessToken string) ClientConfig {
@@ -22,5 +23,6 @@ func DefaultConfig(accessToken string) ClientConfig {
 		HTTPClient:         &http.Client{},
 		EmptyMessagesLimit: defaultEmptyMessagesLimit,
 		BaseURL:            baiduBceURL,
+		Cache:              NewCache(),
 	}
 }

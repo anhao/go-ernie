@@ -3,7 +3,10 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/anhao/go-ernie.svg)](https://pkg.go.dev/github.com/anhao/go-ernie)
 
 本库为文心千帆GO语言SDK，非官方库,目前官方还没有GO语言的SDK [文心千帆](https://cloud.baidu.com/product/wenxinworkshop)
-目前支持：
+
+已支持自动刷新 **accessToken**, 需要通过 **ernie.NewDefaultClient("API Key", "Secret Key")** 方式初始化客户端
+
+目前支持的模型：
 
 * ERNIE-Bot-4
 * ERNIE-Bot
@@ -12,6 +15,7 @@
 * Llama-2
 * Embeddings
 * 百度云所有模型
+
 
 ### 安装
 
