@@ -40,10 +40,10 @@ type ErnieFunction struct {
 }
 
 type ChatCompletionMessage struct {
-	Role         string `json:"role"`
-	Content      string `json:"content"`
-	Name         string `json:"name,omitempty"`
-	FunctionCall string `json:"function_call,omitempty"`
+	Role         string             `json:"role"`
+	Content      string             `json:"content"`
+	Name         string             `json:"name,omitempty"`
+	FunctionCall *ErnieFunctionCall `json:"function_call,omitempty"`
 }
 
 type ErnieBotRequest struct {
