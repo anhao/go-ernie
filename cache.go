@@ -45,3 +45,13 @@ func (c *Cache) Set(key string, value interface{}, expiration time.Duration) {
 		expiration: time.Now().Add(expiration),
 	}
 }
+
+func (c *Cache) Del(key string) {
+	c.lock.Lock()
+	defer c.lock.Unlock()
+	_, exists := c.data[key]
+	if exists {
+		delete(c.data, key)
+	}
+
+}

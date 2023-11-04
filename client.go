@@ -92,12 +92,16 @@ func (c *Client) newRequest(ctx context.Context, method, url string, setters ...
 	if err != nil {
 		return nil, err
 	}
-	if len(c.config.accessToken) == 0 {
+	//clientId 有值
+	if len(c.config.ClientId) != 0 {
 		accessToken, err := c.GetAccessToken(ctx)
 		if err != nil {
 			return nil, err
 		}
-		c.config.accessToken = *accessToken
+		c.config.AccessToken = *accessToken
+	}
+	if len(c.config.AccessToken) == 0 {
+		return nil, errors.New("access_token is empty")
 	}
 
 	c.setCommonQuery(req)
@@ -150,7 +154,7 @@ func sendRequestStream[T streamable](client *Client, req *http.Request) (*stream
 
 func (c *Client) setCommonQuery(req *http.Request) {
 	params := url.Values{}
-	params.Set("access_token", c.config.accessToken)
+	params.Set("access_token", c.config.AccessToken)
 	queryString := params.Encode()
 
 	apiUrl := req.URL
@@ -201,6 +205,10 @@ func (c *Client) GetAccessToken(ctx context.Context) (*string, error) {
 	c.config.Cache.Set("cache_"+c.config.ClientId, rep.AccessToken, time.Duration(rep.ExpiresIn-100)*time.Second)
 
 	return &rep.AccessToken, nil
+}
+
+func (c *Client) ClearAccessToken(ctx context.Context) {
+	c.config.Cache.Del("cache_" + c.config.ClientId)
 }
 
 func (c *Client) fullURL(suffix string) string {

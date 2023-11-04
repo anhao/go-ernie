@@ -8,7 +8,7 @@ const (
 )
 
 type ClientConfig struct {
-	accessToken        string
+	AccessToken        string
 	ClientId           string
 	ClientSecret       string
 	BaseURL            string
@@ -19,7 +19,7 @@ type ClientConfig struct {
 
 func DefaultConfig(accessToken string) ClientConfig {
 	return ClientConfig{
-		accessToken:        accessToken,
+		AccessToken:        accessToken,
 		HTTPClient:         &http.Client{},
 		EmptyMessagesLimit: defaultEmptyMessagesLimit,
 		BaseURL:            baiduBceURL,
