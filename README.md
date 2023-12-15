@@ -11,6 +11,8 @@
 * ERNIE-Bot-4
 * ERNIE-Bot
 * ERNIE-Bot-turbo
+* ERNIE-Bot-8k
+* ERNIE-Bot-turbo-AI
 * BLOOMZ-7B
 * Llama-2
 * Embeddings

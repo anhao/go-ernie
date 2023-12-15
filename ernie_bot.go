@@ -76,11 +76,14 @@ type ErnieUsage struct {
 	Plugins          []ErniePluginUsage `json:"plugins"`
 }
 type ErnieSearchInfoResult struct {
-	Index int    `json:"index"`
-	Url   string `json:"url"`
-	Title string `json:"title"`
+	Index        int    `json:"index"`
+	Url          string `json:"url"`
+	Title        string `json:"title"`
+	DataSourceId string `json:"data_source_id"`
 }
 type ErnieSearchInfo struct {
+	IsBeset       bool                    `json:"is_beset"`
+	ReWrite       string                  `json:"re_write"`
 	SearchResults []ErnieSearchInfoResult `json:"search_results"`
 }
 

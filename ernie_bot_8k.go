@@ -5,9 +5,9 @@ import (
 	"net/http"
 )
 
-const ernieBot4URL = "/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro"
+const ernieBot8KURL = "/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/ernie_bot_8k"
 
-type ErnieBot4Request struct {
+type ErnieBot8KRequest struct {
 	Messages       []ChatCompletionMessage `json:"messages"`
 	Temperature    float32                 `json:"temperature,omitempty"`
 	TopP           float32                 `json:"top_p,omitempty"`
@@ -21,20 +21,20 @@ type ErnieBot4Request struct {
 	EnableCitation bool                    `json:"enable_citation,omitempty"`
 }
 
-type ErnieBot4Response struct {
+type ErnieBot8KResponse struct {
 	ErnieBotResponse
 }
 
-func (c *Client) CreateErnieBot4ChatCompletion(
+func (c *Client) CreateErnieBot8KChatCompletion(
 	ctx context.Context,
-	request ErnieBot4Request,
-) (response ErnieBot4Response, err error) {
+	request ErnieBot8KRequest,
+) (response ErnieBot8KResponse, err error) {
 	if request.Stream {
 		err = ErrChatCompletionStreamNotSupported
 		return
 	}
 
-	req, err := c.newRequest(ctx, http.MethodPost, c.fullURL(ernieBot4URL), withBody(request))
+	req, err := c.newRequest(ctx, http.MethodPost, c.fullURL(ernieBot8KURL), withBody(request))
 	if err != nil {
 		return
 	}
