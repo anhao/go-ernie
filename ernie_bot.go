@@ -56,6 +56,9 @@ type ErnieBotRequest struct {
 	PenaltyScore    float32                 `json:"penalty_score,omitempty"`
 	Functions       []ErnieFunction         `json:"functions,omitempty"`
 	System          string                  `json:"system,omitempty"`
+	Stop            []string                `json:"stop,omitempty"`
+	DisableSearch   bool                    `json:"disable_search,omitempty"`
+	EnableCitation  bool                    `json:"enable_citation,omitempty"`
 }
 
 type ErniePluginUsage struct {
@@ -72,6 +75,14 @@ type ErnieUsage struct {
 	TotalTokens      int                `json:"total_tokens"`
 	Plugins          []ErniePluginUsage `json:"plugins"`
 }
+type ErnieSearchInfoResult struct {
+	Index int    `json:"index"`
+	Url   string `json:"url"`
+	Title string `json:"title"`
+}
+type ErnieSearchInfo struct {
+	SearchResults []ErnieSearchInfoResult `json:"search_results"`
+}
 
 type ErnieBotResponse struct {
 	Id               string            `json:"id"`
@@ -85,6 +96,7 @@ type ErnieBotResponse struct {
 	Usage            ErnieUsage        `json:"usage"`
 	FunctionCall     ErnieFunctionCall `json:"function_call"`
 	BanRound         int               `json:"ban_round"`
+	SearchInfo       ErnieSearchInfo   `json:"search_info"`
 	APIError
 }
 
